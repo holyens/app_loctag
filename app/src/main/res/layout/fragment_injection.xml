@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="5dp"
+    android:focusableInTouchMode="true"
+    tools:context=".ui.injection.InjectionFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView_frame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Frame:"
+            android:textSize="14sp" />
+
+        <Spinner
+            android:id="@+id/spinner_frame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/frame"
+            android:spinnerMode="dialog"
+            android:textSize="14sp"/>
+
+        <EditText
+            android:id="@+id/editText_file"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="filepath"
+            android:textSize="14sp"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView_srcMac"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="src_mac:"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/editText_srcMac"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="00:11:22:33:44:55"
+            android:textSize="14sp" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/textView_dstMac"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="dst_mac:"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/editText_dstMac"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="ff:ff:ff:ff:ff:ff"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <HorizontalScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="18"
+        android:scrollbars="horizontal"
+        android:fillViewport="true"
+        >
+
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            android:fillViewport="true"
+            >
+
+            <TextView
+                android:id="@+id/textView_log"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/black"
+                android:ellipsize="none"
+                android:maxLines="100"
+                android:padding="3dp"
+                android:scrollbars="vertical"
+                android:singleLine="false"
+                android:text="0"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:fontFamily="monospace" />
+
+        </ScrollView>
+    </HorizontalScrollView>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView_channel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Channel:"
+            android:textSize="14sp" />
+
+        <Spinner
+            android:id="@+id/spinner_channel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/channel"
+            android:spinnerMode="dialog"
+            android:textSize="14sp" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/textView_bandwidth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bandwidth (MHz):"
+            android:textSize="14sp" />
+
+        <Spinner
+            android:id="@+id/spinner_bandwidth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/bandwidth"
+            android:spinnerMode="dialog"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView_phy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PHY:"
+            android:textSize="14sp" />
+
+        <Spinner
+            android:id="@+id/spinner_phy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/phy"
+            android:spinnerMode="dialog"
+            android:textSize="14sp" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/textView_rate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rate (Mbps):"
+            android:textSize="14sp"
+            android:visibility="gone" />
+
+        <Spinner
+            android:id="@+id/spinner_rate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/rate"
+            android:spinnerMode="dialog"
+            android:textSize="14sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/textView_mcs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MCS:"
+            android:textSize="14sp" />
+
+        <Spinner
+            android:id="@+id/spinner_mcs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/mcs"
+            android:spinnerMode="dialog"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView_delay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delay (ms):"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/editText_delay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:ems="6"
+            android:inputType="number"
+            android:text="0"
+            android:textSize="14sp" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/textView_period"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Period (ms):"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/editText_period"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:ems="6"
+            android:inputType="number"
+            android:text="1000"
+            android:textSize="14sp" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/textView_Number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Number:"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/editText_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:ems="8"
+            android:inputType="number"
+            android:text="0"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView_chanspec_lb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="chanspec: "
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/textView_chanspec"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/bisque"
+            android:text="0x0d9d"
+            android:textSize="14sp"/>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/textView_ratespec_lb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ratespec: "
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/textView_ratespec"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/bisque"
+            android:text="0xc0000001"
+            android:textSize="14sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView_leftTime_lb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Left time:  "
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/textView_leftTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/bisque"
+            android:text="00:50:00"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button_stop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Stop" />
+
+        <Button
+            android:id="@+id/button_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Start" />
+    </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="12" />
+
+</LinearLayout>

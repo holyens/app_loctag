@@ -1,0 +1,44 @@
+<resources>
+    <string name="app_name">LocTag</string>
+    <string name="title_injection">Injection</string>
+    <string name="title_capture">Capture</string>
+    <string name="title_csi">CSI</string>
+    <string-array name="frame">
+        <item>data frame</item>
+        <item>beacon frame</item>
+        <item>from file</item>
+    </string-array>
+    <string-array name="channel">
+        <item>1</item>
+        <item>2</item>
+        <item>11</item>
+    </string-array>
+    <string-array name="bandwidth">
+        <item>20</item>
+        <item>40</item>
+        <item>80</item>
+        <item>160</item>
+    </string-array>
+    <string-array name="phy">
+        <item>HT</item>
+        <item>VHT</item>
+        <item>DSSS</item>
+        <item>OFDM</item>
+    </string-array>
+    <string-array name="mcs">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+    </string-array>
+    <string-array name="rate">
+        <item>1</item>
+        <item>2</item>
+        <item>5.5</item>
+        <item>11</item>
+    </string-array>
+</resources>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_injection">
+
+    <fragment
+        android:id="@+id/navigation_injection"
+        android:name="top.tjunet.loctag.ui.injection.InjectionFragment"
+        android:label="@string/title_injection"
+        tools:layout="@layout/fragment_injection" />
+
+    <fragment
+        android:id="@+id/navigation_capture"
+        android:name="top.tjunet.loctag.ui.capture.CaptureFragment"
+        android:label="@string/title_capture"
+        tools:layout="@layout/fragment_capture" />
+
+    <fragment
+        android:id="@+id/navigation_csi"
+        android:name="top.tjunet.loctag.ui.csi.CsiFragment"
+        android:label="@string/title_csi"
+        tools:layout="@layout/fragment_csi" />
+</navigation>
