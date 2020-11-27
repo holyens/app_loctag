@@ -260,7 +260,7 @@ public class InjectionFragment extends Fragment {
                                     Log.i("config", String.valueOf(config.period));
                                     Log.i("config", String.valueOf(config.number));
                                 } catch (Exception e) {
-                                    Toast.makeText(getContext(), "invalid channel/period/nubner", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getContext(), "invalid channel/period/number", Toast.LENGTH_SHORT).show();
                                 }
                                 sendRootCommand();
                             }

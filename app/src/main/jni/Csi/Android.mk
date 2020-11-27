@@ -1,0 +1,26 @@
+LOCAL_PATH := $(call my-dir)
+
+include $(CLEAR_VARS)
+LOCAL_SRC_FILES := \
+	radiotap.c \
+	JNICsi.cpp
+
+LOCAL_LDLIBS := -llog
+LOCAL_STATIC_LIBRARIES += libpcap
+
+LOCAL_MODULE := JNICsi
+LOCAL_CFLAGS += -DHAVE_CONFIG_H
+LOCAL_CFLAGS += -D_U_="__attribute__((unused))"
+# LOCAL_CFLAGS += -Werror
+LOCAL_CFLAGS += -DVERSION=\"$(GIT_VERSION)\" -DD11AC_IOTYPES -DCHANSPEC_NEW_40MHZ_FORMAT
+
+LOCAL_MODULE_PATH := $(TARGET_OUT_OPTIONAL_EXECUTABLES)
+
+include $(BUILD_SHARED_LIBRARY)
+
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := libpcap
+LOCAL_SRC_FILES := $(LOCAL_PATH)/../libpcap/local/armeabi/libpcap.a
+LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/../libpcap
+include $(PREBUILT_STATIC_LIBRARY)
