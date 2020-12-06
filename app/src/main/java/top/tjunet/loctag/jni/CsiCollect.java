@@ -17,6 +17,10 @@ public class CsiCollect {
     public interface JNIOnDot11RtReceivedCallback {
         void onReceived(Dot11Rt obj);
     }
+    public static native int createShmFromJni();
+    public static native String getDot11RtPacket(int fd);
+    public static native int closeShmFromJni(int fd);
+
     public static native int open(String devName, String filterExp);
     public static native int dot11RtLoop(int num, JNIOnDot11RtReceivedCallback jniOnDot11RtReceivedCallback);
     public static native int shutdown();

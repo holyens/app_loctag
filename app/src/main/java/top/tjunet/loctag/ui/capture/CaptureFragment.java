@@ -1,6 +1,7 @@
 package top.tjunet.loctag.ui.capture;
 
 import android.os.Bundle;
+import android.os.ParcelFileDescriptor;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,17 +16,26 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import eu.chainfire.libsuperuser.Shell;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.FileDescriptor;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
+
 import top.tjunet.loctag.R;
 import top.tjunet.loctag.jni.CsiCollect;
 
 
 public class CaptureFragment extends Fragment {
     static {
-        System.loadLibrary("JNICsi");
+        System.loadLibrary("android_shm");
     }
     private CaptureViewModel captureViewModel;
-    private static Shell.Interactive rootSession;
+    int shmFd = -1;
+    Process p = null;
+    BufferedReader reader = null;
+    DataOutputStream dos = null;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -33,38 +43,94 @@ public class CaptureFragment extends Fragment {
                 ViewModelProviders.of(this).get(CaptureViewModel.class);
         View root = inflater.inflate(R.layout.fragment_capture, container, false);
         final TextView textView = root.findViewById(R.id.text_capture);
-        final Button button_ndkTest = root.findViewById(R.id.button_ndkTest);
-        final Button button_root = root.findViewById(R.id.button_root);
+        final Button button_openM2 = root.findViewById(R.id.button_openM2);
+        final Button button_startCapture = root.findViewById(R.id.button_startCapture);
+        final Button button_stopCapture = root.findViewById(R.id.button_stopCapture);
         captureViewModel.mText.observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
             }
         });
-        button_root.setOnClickListener(new View.OnClickListener() {
+        button_openM2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openRootShell();
+                try {
+//                    p = Runtime.getRuntime().exec("su");
+//                    reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+//                    dos = new DataOutputStream(p.getOutputStream());
+//                    dos.writeBytes("export LD_PRELOAD=libfakeioctl.so\n");
+//                    dos.writeBytes("echo $LD_PRELOAD\n");
+//                    Log.i("debug", reader.readLine());
+//                    dos.writeBytes("nexutil -m2 -k1/20\n");
+                    //            int read;
+                    //            char[] buffer = new char[4096];
+                    //            StringBuffer output = new StringBuffer();
+                    //
+                    //            while ((read = reader.read(buffer)) > 0) {
+                    //                output.append(buffer, 0, read);
+                    //            }
+                    //
+                    //            reader.close();
+                    //            chmod.waitFor();
+                    //            outputString =  output.toString();
+                    shmFd = CsiCollect.createShmFromJni();
+                    Log.i("debug", String.valueOf(shmFd));
+                    // Thread.sleep(3*60*1000);
+                } catch (Exception e) {
+                    Log.i("debug", e.toString());
+                }
             }
         });
-        button_ndkTest.setOnClickListener(new View.OnClickListener() {
+        button_startCapture.setOnClickListener(new View.OnClickListener() {
+
+
+
             @Override
             public void onClick(View v) {
                 Thread thread = new Thread(new Runnable() {
                     @Override
                     public void run() {
+                        try {
 
-                        Log.i("debug", "before openning");
-                        int ret = CsiCollect.open("wlan0", "");
-                        Log.i("debug", "after openning: "+ret);
-                        CsiCollect.dot11RtLoop(2, new CsiCollect.JNIOnDot11RtReceivedCallback() {
-                            @Override
-                            public void onReceived(CsiCollect.Dot11Rt obj) {
-                                Log.i("debug", String.format("%s->%s: %d %s/%s", obj.txMac, obj.rxMac, obj.rssi, obj.type, obj.subtype));
-                            }
-                        });
-                        Log.i("debug", "after shutdown");
-                        CsiCollect.shutdown();
+                            //dos.writeBytes(String.format("nohup shmtest -f %d &\n", shmFd));
+                            ParcelFileDescriptor cfd = ParcelFileDescriptor.fromFd(shmFd);
+                            android.os.Parcel data = android.os.Parcel.obtain();
+                            android.os.Parcel reply = android.os.Parcel.obtain();
+                            //data.writeParcelable(pfd, 0);
+                            // 或者
+
+                            FileDescriptor fileDescriptor2 = cfd.getFileDescriptor();
+                            data.writeFileDescriptor(fileDescriptor2);
+                            mBinder.transact(0, data, reply, 0);
+
+                            Log.i("debug",  CsiCollect.getDot11RtPacket(shmFd));
+                            Thread.sleep(3*60*1000);
+                            //Log.i("debug", String.format("%s->%s: %d %s/%s", obj.txMac, obj.rxMac, obj.rssi, obj.type, obj.subtype));
+                            //Log.i("debug", reader.readLine());
+                        } catch (IOException| InterruptedException e) {
+                            Log.i("debug", e.toString());
+                        }
+                    }
+                });
+                thread.start();
+            }
+        });
+        button_stopCapture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Thread thread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            dos.writeBytes("exit\n");
+                            dos.close();
+                            reader.close();
+                            p.waitFor();
+                            shmFd = CsiCollect.closeShmFromJni(shmFd);
+                        } catch (IOException|InterruptedException e) {
+                            Log.i("debug", e.toString());
+                        }
                     }
                 });
                 thread.start();
@@ -72,28 +138,4 @@ public class CaptureFragment extends Fragment {
         });
         return root;
     }
-    private void openRootShell() {
-        if (rootSession != null) {
-            return;
-        } else {
-            // start the shell in the background and keep it alive as long as the app is running
-            rootSession = new Shell.Builder().
-            useSU().
-            setWantSTDERR(true).
-            setWatchdogTimeout(10).
-            setMinimalLogging(true).
-            open(new Shell.OnShellOpenResultListener() {
-                // Callback to report whether the shell was successfully started up
-                @Override
-                public void onOpenResult(boolean success, int reason) {
-                    // note: this will FC if you rotate the phone while the dialog is up
-                    if (!success) {
-                        Log.i("Shell","Error opening root shell: exitCode " + reason);
-                    } else {
-                        Log.i("Shell","root shell opened");
-                    }
-                }
-            });
-        }
-    };
 }

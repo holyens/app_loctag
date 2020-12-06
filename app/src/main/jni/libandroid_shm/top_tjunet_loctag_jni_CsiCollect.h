@@ -18,9 +18,9 @@ JNIEXPORT jint JNICALL Java_top_tjunet_loctag_jni_CsiCollect_createShmFromJni
 /*
  * Class:     top_tjunet_loctag_jni_CsiCollect
  * Method:    getDot11RtPacket
- * Signature: (I)Ltop/tjunet/loctag/jni/CsiCollect/Dot11Rt;
+ * Signature: (I)Ljava/lang/String;
  */
-JNIEXPORT jobject JNICALL Java_top_tjunet_loctag_jni_CsiCollect_getDot11RtPacket
+JNIEXPORT jstring JNICALL Java_top_tjunet_loctag_jni_CsiCollect_getDot11RtPacket
   (JNIEnv *, jclass, jint);
 
 /*

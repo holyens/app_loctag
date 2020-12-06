@@ -24,15 +24,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
     <Button
-        android:id="@+id/button_root"
+        android:id="@+id/button_openM2"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:text="Root" />
+        android:text="open m2 mode" />
     <Button
-        android:id="@+id/button_ndkTest"
+        android:id="@+id/button_startCapture"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:text="NDK Test" />
+        android:text="start capture" />
+    <Button
+        android:id="@+id/button_stopCapture"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:text="stop capture" />
     <Space
         android:layout_width="match_parent"
         android:layout_height="0dp"
