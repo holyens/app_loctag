@@ -1,3 +1,5 @@
+Csi/local/
+Csi/libs/
 *.o
 *.d
 *.so

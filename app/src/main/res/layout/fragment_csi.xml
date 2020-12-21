@@ -1,22 +1,337 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical"
+    android:padding="5dp"
     tools:context=".ui.csi.CsiFragment">
 
-    <TextView
-        android:id="@+id/text_csi"
+    <top.tjunet.loctag.ui.PtsGraphView
+        android:id="@+id/csi_view"
+        android:layout_width="wrap_content"
+        android:layout_height="120dp"
+        android:layout_weight="0"
+        android:background="@color/burlywood"/>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/csi_text_csi"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingStart="8dp"
+            android:paddingTop="8dp"
+            android:text="0"
+            android:textSize="20sp" />
+        <TextView
+            android:id="@+id/csi_textView_rssi"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:text="-100 dBm"
+            android:textAlignment="center"
+            android:textColor="#009688"
+            android:textSize="36sp" />
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/csi_textView_file"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:text="File:"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/csi_editText_file"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:ems="10"
+            android:inputType="text"
+            android:imeOptions="actionDone"
+            android:singleLine="true"
+            android:text="01/01.txt"
+            android:textSize="14sp"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/csi_textView_fileStatus"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="new file"
+            android:textColor="#3F51B5"
+            android:textSize="14sp" />
+        <Button
+            android:id="@+id/csi_button_moveLeft"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_weight="0"
+            android:text="&lt;" />
+
+        <Button
+            android:id="@+id/csi_button_moveRight"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_weight="0"
+            android:text="&gt;" />
+
+        <Button
+            android:id="@+id/csi_button_sub"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_weight="0"
+            android:text="-" />
+
+        <Button
+            android:id="@+id/csi_button_add"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_weight="0"
+            android:text="+" />
+
+    </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_weight="0" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/csi_textView_srcMacs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SrcMacs:"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/csi_editText_srcMacs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="text"
+            android:imeOptions="actionDone"
+            android:text="00:15:6d:84:ee:a0"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/csi_button_tips"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:layout_weight="0"
+            android:text="Tips" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/csi_textView_firstPktByte"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="FirstByte:"
+            android:textSize="14sp" />
+
+
+        <!--Spinner
+            android:id="@+id/csi_spinner_channel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/channel"
+            android:spinnerMode="dialog"
+            android:textSize="14sp" /-->
+
+        <!--Space
+            android:layout_width="20dp"
+            android:layout_height="0dp"
+            android:layout_weight="0" /-->
+
+        <EditText
+            android:id="@+id/csi_editText_firstPktByte"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:ems="10"
+            android:inputType="text"
+            android:imeOptions="actionDone"
+            android:singleLine="true"
+            android:text=""
+            android:textSize="14sp"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/csi_textView_nssMask"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:text="NssMask:"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/csi_editText_nssMask"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:ems="10"
+            android:inputType="number"
+            android:imeOptions="actionDone"
+            android:text="1"
+            android:textSize="14sp"
+            android:visibility="visible" />
+        <TextView
+            android:id="@+id/csi_textView_coreMask"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:text="CoreMask:"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/csi_editText_coreMask"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:ems="10"
+            android:inputType="number"
+            android:imeOptions="actionDone"
+            android:text="1"
+            android:textSize="14sp"
+            android:visibility="visible" />
+        <TextView
+            android:id="@+id/csi_textView_delay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:text="delay:"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/csi_editText_delay"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:ems="10"
+            android:inputType="number"
+            android:imeOptions="actionDone"
+            android:text="0"
+            android:textSize="14sp"
+            android:visibility="visible" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/csi_textView_chanspecStr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chanspec:"
+            android:textSize="14sp" />
+
+        <!--Spinner
+            android:id="@+id/csi_spinner_channel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/channel"
+            android:spinnerMode="dialog"
+            android:textSize="14sp" /-->
+        <EditText
+            android:id="@+id/csi_editText_chanspecStr"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:ems="10"
+            android:inputType="text"
+            android:imeOptions="actionDone"
+            android:singleLine="true"
+            android:text="1/20"
+            android:textSize="14sp"
+            android:visibility="visible" />
+
+        <Space
+            android:layout_width="20dp"
+            android:layout_height="0dp"
+            android:layout_weight="0" />
+
+        <TextView
+            android:id="@+id/csi_textView_cnt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:text="Cnt:"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/csi_editText_cnt"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:ems="10"
+            android:inputType="number"
+            android:imeOptions="actionDone"
+            android:text="100"
+            android:textSize="14sp"
+            android:visibility="visible" />
+
+    </LinearLayout>
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_weight="0" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/csi_button_openRoot"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_weight="2"
+            android:text="ROOT" />
+
+        <Button
+            android:id="@+id/csi_button_startCsi"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_weight="2"
+            android:text="start csi" />
+    </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2" />
+
+</LinearLayout>

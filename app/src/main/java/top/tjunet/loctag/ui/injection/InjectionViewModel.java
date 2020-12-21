@@ -4,33 +4,21 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import java.util.Locale;
-
 public class InjectionViewModel extends ViewModel {
 
     public final MutableLiveData<String> mLogLiveData = new MutableLiveData<>();
-    public final MutableLiveData<InjectionConfig> mConfigLiveData = new MutableLiveData<>();
 
-
+    public final MutableLiveData<InjectionFragment.State> mState = new MutableLiveData<>();
+    public final MutableLiveData<String> mMacInfo = new MutableLiveData<>();
+    public final MutableLiveData<String> mPhyInfo = new MutableLiveData<>();
+    public final MutableLiveData<String> mLeftTime = new MutableLiveData<>();
 
     public InjectionViewModel() {
-        mLogLiveData.postValue(">");
-        mConfigLiveData.postValue(new InjectionConfig());
-    }
-
-    public LiveData<InjectionConfig> getConfig() {
-        return mConfigLiveData;
-    }
-
-    public void setConfig(InjectionConfig config) {
-        mConfigLiveData.setValue(config);
-    }
-    public String getNexutilCmd() {
-        return String.format(Locale.ENGLISH, "nexutil -m1 -k%d/%d", mConfigLiveData.getValue().channel, mConfigLiveData.getValue().bandwidth);
-    }
-
-    public String getInjectutilCmd() {
-        return String.format(Locale.ENGLISH, "injectutil -p %d -n %d", mConfigLiveData.getValue().period, mConfigLiveData.getValue().number);
+        mLogLiveData.setValue(">");
+        mState.setValue(InjectionFragment.State.idle);
+        mMacInfo.setValue("");
+        mPhyInfo.setValue("");
+        mLeftTime.setValue("00:00:00");
     }
 
     /**
