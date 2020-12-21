@@ -11,6 +11,7 @@ An App that can realize injection, sniff, csi extaction (based on *nexmon* proje
     - android-ndk-r11c
 
 - **Project settings**
+    - Android studio 4.0.1
     - compileSdkVersion 28
     - buildToolsVersion "28.0.3"
     - minSdkVersion 23

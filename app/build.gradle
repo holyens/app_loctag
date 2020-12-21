@@ -15,6 +15,7 @@ android {
         ndk {
             abiFilters "armeabi"
         }
+        setProperty("archivesBaseName", "LocTag")
     }
 
     buildTypes {
