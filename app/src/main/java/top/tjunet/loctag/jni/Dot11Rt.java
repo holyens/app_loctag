@@ -80,9 +80,16 @@ public class Dot11Rt {
     public int subtype;
     public String SSID;
 
+    public boolean isBeacon() {
+        return status==0 && type == 0 && subtype == 8;
+    }
     @NonNull
     public String toString() {
         return String.format("%d,%s,%s,%.1f,%d,%d,%d,%d,%d,%s", status, txMac, rxMac, rate, cFreq, rssi, noise, type, subtype, SSID);
+    }
+
+    public String toTagString() {
+        return String.format("%s,%.1f,%d,%d,%d,%d,%d,%s", txMac, rate, cFreq, rssi, SSID);
     }
 
     public String toPrintString() {

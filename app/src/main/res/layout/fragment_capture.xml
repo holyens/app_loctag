@@ -138,7 +138,7 @@
             android:ems="10"
             android:inputType="text"
             android:imeOptions="actionDone"
-            android:text="ether src 00:15:6d:84:ee:a0"
+            android:text="ether src B4:EE:B4:B7:0B:3C"
             android:textSize="14sp" />
 
         <Button
